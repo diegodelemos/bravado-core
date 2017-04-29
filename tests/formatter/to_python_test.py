@@ -2,11 +2,17 @@
 from datetime import date
 from datetime import datetime
 
+import pytest
 import six
 from mock import patch
 
 from bravado_core.formatter import to_python
 from bravado_core.spec import Spec
+
+
+if not six.PY2:
+    # long definition needed to make happy ``flake8`` on python3
+    long = int
 
 
 def test_none(minimal_swagger_spec):
@@ -42,28 +48,27 @@ def test_no_registered_format_returns_value_as_is_and_issues_warning(
 
 def test_int64_long(minimal_swagger_spec):
     integer_spec = {'type': 'integer', 'format': 'int64'}
-    if six.PY3:
-        result = to_python(minimal_swagger_spec, integer_spec, 999)
-        assert 999 == result
-    else:
+    if six.PY2:
         result = to_python(minimal_swagger_spec, integer_spec, long(999))
         assert long(999) == result
+    else:
+        result = to_python(minimal_swagger_spec, integer_spec, 999)
+        assert 999 == result
 
 
 def test_int64_int(minimal_swagger_spec):
     integer_spec = {'type': 'integer', 'format': 'int64'}
     result = to_python(minimal_swagger_spec, integer_spec, 999)
-    if six.PY3:
-        assert 999 == result
-        assert isinstance(result, int)
-    else:
+    if six.PY2:
         assert long(999) == result
         assert isinstance(result, long)
+    else:
+        assert 999 == result
+        assert isinstance(result, int)
 
 
+@pytest.mark.skipif(condition=not six.PY2, reason='test relevant only for python 2')
 def test_int32_long(minimal_swagger_spec):
-    if six.PY3:  # test irrelevant in py3
-        return
     integer_spec = {'type': 'integer', 'format': 'int32'}
     result = to_python(minimal_swagger_spec, integer_spec, long(999))
     assert 999 == result

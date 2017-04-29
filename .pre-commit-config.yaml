@@ -15,6 +15,10 @@
     -   id: trailing-whitespace
     -   id: requirements-txt-fixer
         files: requirements-dev.txt
+    -   id: pretty-format-json
+        args:
+        - --autofix
+        - --indent=4
 -   repo: git://github.com/asottile/reorder_python_imports
     sha: v0.3.2
     hooks:

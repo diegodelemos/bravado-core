@@ -12,7 +12,7 @@ import six
 
 from bravado_core import schema
 
-if six.PY3:
+if not six.PY2:
     long = int
 
 

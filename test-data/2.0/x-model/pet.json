@@ -1,37 +1,39 @@
 {
-  "definitions": {
-    "Pet": {
-      "x-model": "Pet",
-      "type": "object",
-      "required": ["name"],
-      "properties": {
-        "name": {
-          "type": "string"
+    "definitions": {
+        "Pet": {
+            "properties": {
+                "name": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "name"
+            ],
+            "type": "object",
+            "x-model": "Pet"
         }
-      }
-    }
-  },
-  "paths": {
-    "pet": {
-      "get": {
-        "operationId": "getPetById",
-        "parameters": [
-          {
-            "name": "pet_id",
-            "in": "query",
-            "description": "Pet ID",
-            "type": "integer"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful response",
-            "schema": {
-              "$ref": "#/definitions/Pet"
+    },
+    "paths": {
+        "pet": {
+            "get": {
+                "operationId": "getPetById",
+                "parameters": [
+                    {
+                        "description": "Pet ID",
+                        "in": "query",
+                        "name": "pet_id",
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "schema": {
+                            "$ref": "#/definitions/Pet"
+                        }
+                    }
+                }
             }
-          }
         }
-      }
     }
-  }
 }

@@ -1,49 +1,49 @@
 {
-  "swagger": "2.0",
-  "info": {
-    "version": "1.0.0",
-    "title": "Simple"
-  },
-  "tags": [
-      {
-          "name": "pingpong",
-          "description": "pingpong related specs"
-      }
-  ],
-  "paths": {
-    "/ping": {
-      "get": {
-        "tags": [
-            "pingpong"
-        ],
-        "operationId": "ping",
-        "parameters": [
-            {
-                "name": "pung",
-                "in": "query",
-                "description": "true or false",
-                "type": "boolean"
-            }
-        ],
-        "responses": {
-          "200": {
-            "description": "pong",
-            "schema": {
-              "$ref": "#/definitions/pong"
-            }
-          }
+    "definitions": {
+        "pong": {
+            "properties": {
+                "pang": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
         }
-      }
-    }
-  },
-  "definitions": {
-      "pong": {
-          "type": "object",
-          "properties": {
-              "pang": {
-                  "type": "string"
-              }
-          }
-      }
-  }
+    },
+    "info": {
+        "title": "Simple",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/ping": {
+            "get": {
+                "operationId": "ping",
+                "parameters": [
+                    {
+                        "description": "true or false",
+                        "in": "query",
+                        "name": "pung",
+                        "type": "boolean"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "pong",
+                        "schema": {
+                            "$ref": "#/definitions/pong"
+                        }
+                    }
+                },
+                "tags": [
+                    "pingpong"
+                ]
+            }
+        }
+    },
+    "swagger": "2.0",
+    "tags": [
+        {
+            "description": "pingpong related specs",
+            "name": "pingpong"
+        }
+    ]
 }
