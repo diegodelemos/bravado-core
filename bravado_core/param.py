@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import os
 import logging
 from functools import partial
 
@@ -284,7 +285,8 @@ def add_file(param, value, request):
                     param.op.consumes
             ))
 
-    file_tuple = (param.name, (param.name, value))
+    _, file_name = os.path.split(value.name)
+    file_tuple = (param.name, (file_name, value))
     request['files'].append(file_tuple)
 
 
